@@ -4,6 +4,7 @@ toolchain/ndk
 toolchain/adb
 toolchain/bin
 toolchain/python
+toolchain/declarations
 
 output
 .idea
