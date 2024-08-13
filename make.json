@@ -1,0 +1,52 @@
+{
+    "global": {
+        "info": {
+            "name": "MethodsOptifine",
+            "author": "Reider745",
+            "version": "1.0",
+            "description": "",
+            "clientOnly": true
+        },
+        "api": "CoreEngine"
+    },
+    "make": {
+        "debugAbi": "armeabi-v7a",
+        "abis": [
+            "armeabi-v7a"
+        ],
+        "linkNative": [
+            "minecraftpe",
+            "innercore",
+            "nativejs"
+        ],
+        "excludeFromRelease": [],
+        "pushTo": "storage/emulated/0/games/horizon/packs/Inner_Core_Test_2/modpacks/Aw-dev/mods/method-optifine",
+        "ndkPath": null
+    },
+    "resources": [],
+    "sources": [
+        {
+            "source": "src/dev",
+            "target": "main.js",
+            "type": "main",
+            "language": "typescript"
+        },
+        {
+            "source": "src/launcher.js",
+            "type": "launcher",
+            "language": "javascript"
+        }
+    ],
+    "compile": [
+        {
+            "source": "src/java",
+            "type":"java"
+        }
+    ],
+    "additional": [
+        {
+            "source": "src/config.json",
+            "targetDir": "."
+        }
+    ]
+}
