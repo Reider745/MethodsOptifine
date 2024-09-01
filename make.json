@@ -3,7 +3,7 @@
         "info": {
             "name": "MethodsOptifine",
             "author": "Reider745",
-            "version": "1.0",
+            "version": "1.1.0",
             "description": "MethodsOptifine - мод для повышения tps/fps за счет прямого вызова java метов, т.е без рефлексии",
             "clientOnly": true,
             "icon": "src/mod_icon.png"
@@ -21,7 +21,7 @@
             "nativejs"
         ],
         "excludeFromRelease": [],
-        "pushTo": "storage/emulated/0/games/horizon/packs/Inner_Core_Test_2/modpacks/Aw-dev/mods/MethodsOptifine",
+        "pushTo": "storage/emulated/0/games/horizon/packs/Inner_Core_Test_2/modpacks/du/mods/MethodsOptifine",
         "ndkPath": null
     },
     "resources": [],
