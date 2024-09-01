@@ -25,7 +25,13 @@
         "ndkPath": null
     },
     "resources": [],
-    "sources": [],
+    "sources": [
+        {
+            "source": "src/launcher.js",
+            "type": "launcher",
+            "language": "javascript"
+        }
+    ],
     "compile": [
         {
             "source": "src/java",
