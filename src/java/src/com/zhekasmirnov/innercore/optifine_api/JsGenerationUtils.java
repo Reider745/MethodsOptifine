@@ -3,7 +3,6 @@ package com.zhekasmirnov.innercore.optifine_api;
 import com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI.GenerationUtils;
 import com.zhekasmirnov.innercore.api.mod.util.ScriptableFunctionImpl;
 import org.mozilla.javascript.*;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -97,40 +96,40 @@ public class JsGenerationUtils extends ScriptableObject implements Wrapper {
         this.self = self;
         put("getClass", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return self.getClass();
             }
         });
         put("hashCode", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return self.hashCode();
             }
         });
         put("equals", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return self.equals(wrapObject(args, 0, java.lang.Object.class));
             }
         });
         put("notifyAll", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 self.notifyAll();
-                return null;
+                return Undefined.instance;
             }
         });
         put("toString", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return self.toString();
             }
         });
         put("notify", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 self.notify();
-                return null;
+                return Undefined.instance;
             }
         });
 
@@ -138,12 +137,20 @@ public class JsGenerationUtils extends ScriptableObject implements Wrapper {
 
     @Override
     public String getClassName() {
-        return "GenerationUtils";
+        return "Object";
     }
 
     @Override
     public Object unwrap() {
         return this.self;
+    }
+
+    @Override
+    public boolean hasInstance(Scriptable value) {
+        if (value instanceof Wrapper) {
+            return com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI.PlayerActor.class.isInstance(((Wrapper) value).unwrap());
+        }
+        return false;
     }
 
     @Override
@@ -174,13 +181,13 @@ public class JsGenerationUtils extends ScriptableObject implements Wrapper {
         final ConcurrentHashMap<String, Field> fields = new ConcurrentHashMap<>();
         final ScriptableObject global = new BaseScriptableClass() {
             @Override
-            public Scriptable construct(Context context, Scriptable scriptable, Object[] args) {
+            public Scriptable construct(Context ctx, Scriptable scope, Object[] args) {
                 return new JsGenerationUtils(new com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI.GenerationUtils());
             }
 
             @Override
             public String getClassName() {
-                return "GenerationUtils";
+                return "JavaClass";
             }
 
             @Override
@@ -211,58 +218,58 @@ public class JsGenerationUtils extends ScriptableObject implements Wrapper {
 
         global.put("isTerrainBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return GenerationUtils.isTerrainBlock(wrapInt(args, 0));
             }
         });
         global.put("generateOreNative", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GenerationUtils.generateOreNative(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3), wrapInt(args, 4), wrapInt(args, 5), wrapBoolean(args, 6), wrapObject(args, 7, int[].class), wrapInt(args, 8));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("isTransparentBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return GenerationUtils.isTransparentBlock(wrapInt(args, 0));
             }
         });
         global.put("generateOre", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GenerationUtils.generateOre(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3), wrapInt(args, 4), wrapInt(args, 5), wrapBoolean(args, 6), wrapInt(args, 7));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("canSeeSky", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return GenerationUtils.canSeeSky(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2));
             }
         });
         global.put("getPerlinNoise", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return GenerationUtils.getPerlinNoise(wrapDouble(args, 0), wrapDouble(args, 1), wrapDouble(args, 2), wrapInt(args, 3), wrapDouble(args, 4), wrapInt(args, 5));
             }
         });
         global.put("findSurface", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return GenerationUtils.findSurface(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2));
             }
         });
         global.put("generateOreCustom", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GenerationUtils.generateOreCustom(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3), wrapInt(args, 4), wrapInt(args, 5), wrapBoolean(args, 6), wrapObject(args, 7, org.mozilla.javascript.NativeArray.class), wrapInt(args, 8));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("nativeGetPerlinNoise", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return GenerationUtils.nativeGetPerlinNoise((float) wrapDouble(args, 0), (float) wrapDouble(args, 1), (float) wrapDouble(args, 2), wrapInt(args, 3), (float) wrapDouble(args, 4), wrapInt(args, 5));
             }
         });

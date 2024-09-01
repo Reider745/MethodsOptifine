@@ -3,7 +3,6 @@ package com.zhekasmirnov.innercore.optifine_api;
 import com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI.GameController;
 import com.zhekasmirnov.innercore.api.mod.util.ScriptableFunctionImpl;
 import org.mozilla.javascript.*;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -97,40 +96,40 @@ public class JsGameController extends ScriptableObject implements Wrapper {
         this.self = self;
         put("getClass", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return self.getClass();
             }
         });
         put("hashCode", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return self.hashCode();
             }
         });
         put("equals", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return self.equals(wrapObject(args, 0, java.lang.Object.class));
             }
         });
         put("notifyAll", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 self.notifyAll();
-                return null;
+                return Undefined.instance;
             }
         });
         put("toString", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return self.toString();
             }
         });
         put("notify", this, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 self.notify();
-                return null;
+                return Undefined.instance;
             }
         });
 
@@ -138,12 +137,20 @@ public class JsGameController extends ScriptableObject implements Wrapper {
 
     @Override
     public String getClassName() {
-        return "GameController";
+        return "Object";
     }
 
     @Override
     public Object unwrap() {
         return this.self;
+    }
+
+    @Override
+    public boolean hasInstance(Scriptable value) {
+        if (value instanceof Wrapper) {
+            return com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI.PlayerActor.class.isInstance(((Wrapper) value).unwrap());
+        }
+        return false;
     }
 
     @Override
@@ -174,13 +181,13 @@ public class JsGameController extends ScriptableObject implements Wrapper {
         final ConcurrentHashMap<String, Field> fields = new ConcurrentHashMap<>();
         final ScriptableObject global = new BaseScriptableClass() {
             @Override
-            public Scriptable construct(Context context, Scriptable scriptable, Object[] args) {
+            public Scriptable construct(Context ctx, Scriptable scope, Object[] args) {
                 return new JsGameController(new com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI.GameController());
             }
 
             @Override
             public String getClassName() {
-                return "GameController";
+                return "JavaClass";
             }
 
             @Override
@@ -211,97 +218,97 @@ public class JsGameController extends ScriptableObject implements Wrapper {
 
         global.put("continueBuildBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.continueBuildBlock(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("stopBuildBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.stopBuildBlock();
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("continueDestroyBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return GameController.continueDestroyBlock(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3));
             }
         });
         global.put("buildBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.buildBlock(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("interact", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 if (args.length == 4) {
                     GameController.interact(wrapObject(args, 0, java.lang.Object.class), wrapDouble(args, 1), wrapDouble(args, 2), wrapDouble(args, 3));
-                    return null;
+                    return Undefined.instance;
                 }
                 throw new RuntimeException("Not method...");
             }
         });
         global.put("releaseUsingItem", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.releaseUsingItem();
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("startDestroyBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 return GameController.startDestroyBlock(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3));
             }
         });
         global.put("attack", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 if (args.length == 1) {
                     GameController.attack(wrapObject(args, 0, java.lang.Object.class));
-                    return null;
+                    return Undefined.instance;
                 }
                 throw new RuntimeException("Not method...");
             }
         });
         global.put("stopDestroyBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.stopDestroyBlock(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("destroyBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.destroyBlock(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("startBuildBlock", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.startBuildBlock(wrapInt(args, 0), wrapInt(args, 1), wrapInt(args, 2), wrapInt(args, 3));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("onItemUse", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.onItemUse(wrapDouble(args, 0), wrapDouble(args, 1), wrapDouble(args, 2), wrapInt(args, 3));
-                return null;
+                return Undefined.instance;
             }
         });
         global.put("useItemOn", global, new ScriptableFunctionImpl() {
             @Override
-            public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+            public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {
                 GameController.useItemOn(wrapLong(args, 0), (float) wrapDouble(args, 1), (float) wrapDouble(args, 2), (float) wrapDouble(args, 3), wrapInt(args, 4), wrapLong(args, 5));
-                return null;
+                return Undefined.instance;
             }
         });
         scope.put("GameController", scope, global);

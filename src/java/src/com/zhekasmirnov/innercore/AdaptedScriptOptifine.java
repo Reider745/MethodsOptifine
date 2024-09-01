@@ -19,44 +19,25 @@ public class AdaptedScriptOptifine extends AdaptedScriptAPI {
     protected void injectIntoScope(ScriptableObject scope, List<String> filter) {
         super.injectIntoScope(scope, filter);
 
-        JsLevel.inject(scope);//AdaptedScriptAPI.Level
-        JsEntity.inject(scope);//AdaptedScriptAPI.Entity
-        JsParticles.inject(scope);//AdaptedScriptAPI.Particles
-        JsTranslation.inject(scope);//AdaptedScriptAPI.Translation
-        JsUpdatable.inject(scope);//AdaptedScriptAPI.Updatable
+        JsAdaptedScriptAPILevel.inject(scope);//AdaptedScriptAPI.Level
+        JsAdaptedScriptAPIEntity.inject(scope);//AdaptedScriptAPI.Entity
+        JsAdaptedScriptAPIParticles.inject(scope);//AdaptedScriptAPI.Particles
+        JsAdaptedScriptAPITranslation.inject(scope);//AdaptedScriptAPI.Translation
+        JsAdaptedScriptAPIUpdatable.inject(scope);//AdaptedScriptAPI.Updatable
         JsNativeBlockSource.inject(scope);//NativeBlockSource
-        JsUI.inject(scope);//AdaptedScriptAPI.UI
-        JsItem.inject(scope);//AdaptedScriptAPI.Item
-        JsBlock.inject(scope);//AdaptedScriptAPI.Block
-        JsGameController.inject(scope);//AdaptedScriptAPI.GameController
-        JsSaver.inject(scope);//AdaptedScriptAPI.Saver
-        JsLogger.inject(scope);//AdaptedScriptAPI.Logger
-        JsPlayerActor.inject(scope);//AdaptedScriptAPI.PlayerActor
-        JsItemContainer.inject(scope);//AdaptedScriptAPI.ItemContainer
+        JsAdaptedScriptAPIUI.inject(scope);//AdaptedScriptAPI.UI
+        JsAdaptedScriptAPIItem.inject(scope);//AdaptedScriptAPI.Item
+        JsAdaptedScriptAPIBlock.inject(scope);//AdaptedScriptAPI.Block
+        JsAdaptedScriptAPIGameController.inject(scope);//AdaptedScriptAPI.GameController
+        JsAdaptedScriptAPISaver.inject(scope);//AdaptedScriptAPI.Saver
+        JsAdaptedScriptAPILogger.inject(scope);//AdaptedScriptAPI.Logger
+        JsAdaptedScriptAPIPlayerActor.inject(scope);//AdaptedScriptAPI.PlayerActor
+        JsAdaptedScriptAPIItemContainer.inject(scope);//AdaptedScriptAPI.ItemContainer
     }
 
     public static void boot(HashMap<?, ?> args) throws IOException {
-        /*ClassCode.save(AdaptedScriptAPI.Level.class);
-        ClassCode.save(AdaptedScriptAPI.Entity.class);
-        ClassCode.save(AdaptedScriptAPI.Translation.class);
-        ClassCode.save(AdaptedScriptAPI.Updatable.class);
-        ClassCode.save(AdaptedScriptAPI.Particles.class);
-
-        ClassCode.save(AdaptedScriptAPI.GenerationUtils.class);
-        ClassCode.save(AdaptedScriptAPI.Player.class);
-        ClassCode.save(AdaptedScriptAPI.IDRegistry.class);
-        ClassCode.save(AdaptedScriptAPI.Recipes.class);
-        ClassCode.save(NativeBlockSource.class);
-
-        ClassCode.save(AdaptedScriptAPI.UI.class);
-        ClassCode.save(AdaptedScriptAPI.Block.class);
-        ClassCode.save(AdaptedScriptAPI.Item.class);
-        ClassCode.save(AdaptedScriptAPI.GameController.class);
-        ClassCode.save(AdaptedScriptAPI.Saver.class);
-
-        ClassCode.save(AdaptedScriptAPI.Logger.class);
-        ClassCode.save(AdaptedScriptAPI.PlayerActor.class);
-        ClassCode.save(AdaptedScriptAPI.ItemContainer.class);*/
+        //ClassCode.genApi();
+        InitClasses.init();
 
         try{
             final AdaptedScriptOptifine adaptedScriptOptifine = new AdaptedScriptOptifine();

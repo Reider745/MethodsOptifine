@@ -3,6 +3,7 @@ package com.zhekasmirnov.innercore.optifine_api.codegen;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
 public class BuildMethodCode {
@@ -45,16 +46,23 @@ public class BuildMethodCode {
     private static String genUse(String useClass, Executable method){
         String code = "";
 
-        Class<?> retType = null;
+        Class<?> retType = method.getDeclaringClass();
         if(method instanceof Method)
             retType = ((Method) method).getReturnType();
 
         final String methodUse = useClass.replace("%s", method.getName().replaceAll("\\$", ".")+"("+buildArgs(method.getParameterTypes())+")");
-        if(retType != null && retType.getSimpleName().equals("void")){
-            code+=methodUse+"\n";
-            code+="return null;\n";
+        if(retType.getSimpleName().equals("void")){
+            code+=methodUse+";\n";
+            code+="return Undefined.instance;\n";
         }else{
-            code+="return "+methodUse+"\n";
+            final AtomicBoolean is = new AtomicBoolean(false);
+            final String aboba = ClassCode.getClassConverter(retType, methodUse, is);
+            if(is.get()){
+                code+="final "+retType.getName().replaceAll("\\$", ".") + " res = "+methodUse+";\n";
+                code+="return "+aboba.replace("%s", "res")+";\n";
+            }else {
+                code+="return "+aboba.replace("%s", methodUse)+";\n";
+            }
         }
 
         return code;
@@ -78,7 +86,7 @@ public class BuildMethodCode {
     public static String genFullMethod(String useClass, List<Executable> methods){
         String code = "new ScriptableFunctionImpl() {\n";
         code += "@Override\n";
-        code += "public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {\n";
+        code += "public Object call(Context ctx, Scriptable scope, Scriptable thisObj, Object[] args) {\n";
         code += genMethod(useClass, methods);
         code += "}\n";
         return code + "}";

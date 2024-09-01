@@ -1,14 +1,18 @@
 package com.zhekasmirnov.innercore.optifine_api.codegen;
 
+import com.zhekasmirnov.apparatus.mcpe.NativeBlockSource;
+import com.zhekasmirnov.horizon.runtime.logger.Logger;
+import com.zhekasmirnov.innercore.api.log.ICLog;
+import com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI;
 import com.zhekasmirnov.innercore.utils.FileTools;
+import org.mozilla.javascript.Scriptable;
 
 import java.io.IOException;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 
@@ -26,7 +30,7 @@ public class ClassCode {
                 "                    }\n" +
                 "                if(added) {\n" +
                 "                    field.setAccessible(true);\n" +
-                "                    fields.put(field.getName(), field);\n" +
+                "                    fields.put(field.getName(), new JsFieldOpti(field));\n" +
                 "                }\n" +
                 "            }\n" +
                 "            super_clazz = super_clazz.getSuperclass();\n" +
@@ -39,7 +43,7 @@ public class ClassCode {
         String code = "";
         code += "@Override\n" +
                 "    public void put(String name, Scriptable start, Object value) {\n" +
-                "        final Field field = fields.get(name);\n" +
+                "        final JsFieldOpti field = fields.get(name);\n" +
                 "        if(field != null){\n" +
                 "            try {\n" +
                 "                field.set("+name+", value);\n" +
@@ -51,10 +55,10 @@ public class ClassCode {
                 "\n" +
                 "    @Override\n" +
                 "    public Object get(String name, Scriptable start) {\n" +
-                "        final Field field = fields.get(name);\n" +
+                "        final JsFieldOpti field = fields.get(name);\n" +
                 "        if(field != null){\n" +
                 "            try {\n" +
-                "                return field.get("+name+");\n" +
+                "                return field.get("+name+", this);\n" +
                 "            } catch (IllegalAccessException e) {\n" +
                 "            }\n" +
                 "        }\n" +
@@ -62,11 +66,57 @@ public class ClassCode {
                 "    }\n\n";
         return code;
     }
+
+    private static final ArrayList<String> clazzSkip = new ArrayList<>(), initClass = new ArrayList<>();
+
+    public static String getNameClass(Class<?> clazz){
+        final String[] packages = clazz.getName().split("\\.");
+        return packages[packages.length - 1].replace("$", "");
+    }
+
+
+    public static String getClassConverter(Class<?> retType, String defUse, AtomicBoolean is){
+        if(retType == null || !retType.getName().startsWith("com.zhekasmirnov"))
+            return defUse;
+
+        if(retType.isPrimitive() || retType.isEnum() || retType.equals(String.class) || Scriptable.class.isAssignableFrom(retType) || Modifier.isPrivate(retType.getModifiers()) || Modifier.isProtected(retType.getModifiers()))
+            return "%s";
+
+        if(retType.isArray()){
+            return "NativeJavaArray.wrap(scope, %s)";
+        }
+
+        if(retType.isInterface() || Modifier.isAbstract(retType.getModifiers())){
+            is.set(true);
+            return "ctx.getWrapFactory().wrap(ctx, scope, %s, %s.getClass())";
+        }
+
+        final String name = retType.getName();
+        if(!clazzSkip.contains(name)){
+            try{
+                save(retType);
+            }catch (IOException e){
+                Logger.warning(ICLog.getStackTrace(e));
+                return "%s";
+            }
+        }
+
+        return "new Js" + getNameClass(retType) + "(%s)";
+    }
+
     public static String gen(Class<?> clazz, boolean declaring){
-        final String name = clazz.getSimpleName();
+        if(clazzSkip.contains(clazz.getName())){
+            return null;
+        }
+        clazzSkip.add(clazz.getName());
+
+        final String name = getNameClass(clazz);
+
         String code = "";
 
         if(!declaring){
+            initClass.add(name);
+
             code += "package com.zhekasmirnov.innercore.optifine_api;\n\n";
 
             code += "import "+clazz.getName().replaceAll("\\$", ".")+";\n";
@@ -79,23 +129,21 @@ public class ClassCode {
                 superClass = superClass.getSuperclass();
             }
             code += "import com.zhekasmirnov.innercore.api.mod.util.ScriptableFunctionImpl;\n";
-            code += "import org.mozilla.javascript.ScriptableObject;\n";
-            code += "import org.mozilla.javascript.Context;\n";
-            code += "import org.mozilla.javascript.Scriptable;\n";
-            code += "import org.mozilla.javascript.Wrapper;\n";
-            code += "import org.mozilla.javascript.UniqueTag;\n";
-            code += "import org.mozilla.javascript.NativeJavaObject;\n";
+            code += "import org.mozilla.javascript.*;\n";
             code += "import java.util.concurrent.ConcurrentHashMap;\n";
             code += "import java.lang.reflect.Field;\n";
             code += "import java.lang.reflect.Modifier;\n";
             code += "import java.lang.reflect.Method;\n";
+            code += "import com.zhekasmirnov.innercore.optifine_api.codegen.JsFieldOpti;\n";
+            code += "import com.zhekasmirnov.innercore.optifine_api.codegen.IClassInstance;\n";
+            code += "import com.zhekasmirnov.innercore.optifine_api.codegen.JsTypesInit;\n";
             code += "import com.zhekasmirnov.innercore.optifine_api.codegen.BaseScriptableClass;\n\n";
         }
 
         if(declaring)
-            code += "public static class Js"+name+" extends ScriptableObject implements Wrapper {\n\n";
+            code += "public static class Js"+name+" extends ScriptableObject implements Wrapper, IClassInstance {\n\n";
         else {
-            code += "public class Js" + name + " extends ScriptableObject implements Wrapper {\n\n";
+            code += "public class Js" + name + " extends ScriptableObject implements Wrapper,IClassInstance {\n\n";
 
             code += "private static int wrapInt(Object[] args, int index){\n";
             code += "try{return ((Number) args[index]).intValue();}catch(ClassCastException | ArrayIndexOutOfBoundsException | NullPointerException e){return 0;}\n";
@@ -122,15 +170,33 @@ public class ClassCode {
             code += "}\n\n";
         }
 
-        code += "private static final ConcurrentHashMap<String, Field> fields = new ConcurrentHashMap<>();\n" +
+        code += "private static final ConcurrentHashMap<String, JsFieldOpti> fields = new ConcurrentHashMap<>();\n" +
                 "    \n" +
                 "    static {\n" +
                 importFields(clazz.getName().replaceAll("\\$", ".")+".class")+"\n"+
                 "    }";
 
+        code += "public static void init(){\n" +
+                "        JsTypesInit.register(new JsTypesInit.DefJsClass("+clazz.getSimpleName()+".class, new JsTypesInit.IBuilderClass() {\n" +
+                "            @Override\n" +
+                "            public Object call(Object arg) {\n" +
+                "                return new Js"+name+"(("+clazz.getSimpleName()+") arg);\n" +
+                "            }\n" +
+                "        }));\n";
+        Class<?> superClass = clazz;
+        while(superClass != null) {
+            for (Class<?> clazz_dec : superClass.getDeclaredClasses()) {
+                if(!clazz_dec.isInterface() && !clazz_dec.isEnum() && (clazz_dec.getModifiers() & Modifier.PUBLIC) != 0)
+                    code += "Js"+getNameClass(clazz_dec)+".init();\n";
+            }
+            superClass = superClass.getSuperclass();
+        }
+
+        code += "    }\n";
+
         // not static method
-        code += "private final "+name+" self;\n";
-        code += "public Js"+name+"("+name+" self){\n";
+        code += "private final "+clazz.getSimpleName()+" self;\n";
+        code += "public Js"+name+"("+clazz.getSimpleName()+" self){\n";
         code += "this.self = self;\n";
 
         final HashMap<String, ArrayList<Executable>> notStaticMethods = new HashMap<>();
@@ -157,7 +223,7 @@ public class ClassCode {
             @Override
             public void accept(String method_name, ArrayList<Executable> list) {
                 if(!method_name.equals("wait"))
-                    code_methods.set(code_methods.get() + "put(\"" + method_name + "\", this, " + BuildMethodCode.genFullMethod("self.%s;", list) + ");\n");
+                    code_methods.set(code_methods.get() + "put(\"" + method_name + "\", this, " + BuildMethodCode.genFullMethod("self.%s", list) + ");\n");
             }
         });
 
@@ -168,7 +234,7 @@ public class ClassCode {
 
         code += "@Override\n";
         code += "public String getClassName(){\n";
-        code += "return \""+name+"\";\n";
+        code += "return \"Object\";";
         code += "}\n\n";
 
         code += "@Override\n";
@@ -176,20 +242,33 @@ public class ClassCode {
         code += "return this.self;\n";
         code += "}\n";
 
+        code += "   @Override\n" +
+                "    public Object getSelf() {\n" +
+                "        return self;\n" +
+                "    }\n";
+
+        code += "@Override\n" +
+                "            public boolean hasInstance(Scriptable value) {\n" +
+                "                if (value instanceof Wrapper) {\n" +
+                "                    return com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI.PlayerActor.class.isInstance(((Wrapper) value).unwrap());\n" +
+                "                }\n" +
+                "                return false;\n" +
+                "            }\n";
+
         code += getOverrideFields("self");
 
 
         // static method
         code += "public static void inject(ScriptableObject scope){\n";
-        code += "final ConcurrentHashMap<String, Field> fields = new ConcurrentHashMap<>();\n";
+        //code += "final ConcurrentHashMap<String, JsFieldOpti> fields = new ConcurrentHashMap<>();\n";
         code += "final ScriptableObject global = new BaseScriptableClass(){\n";
         code += "@Override\n";
-        code += "public Scriptable construct(Context context, Scriptable scriptable, Object[] args) {\n";
-        code += BuildMethodCode.genMethod("new Js"+clazz.getSimpleName()+"(new %s);", Arrays.asList(clazz.getConstructors()));
+        code += "public Scriptable construct(Context ctx, Scriptable scope, Object[] args) {\n";
+        code += BuildMethodCode.genMethod("new %s", Arrays.asList(clazz.getConstructors()));
         code += "}\n\n";
         code += "@Override\n";
         code += "public String getClassName(){\n";
-        code += "return \""+name+"\";\n";
+        code += "return \"JavaClass\";";
         code += "}\n";
         code += getOverrideFields("null");
         code += "};\n\n";
@@ -199,16 +278,16 @@ public class ClassCode {
             @Override
             public void accept(String method_name, ArrayList<Executable> list) {
                 if(!method_name.equals("wait"))
-                    finalCode_methods.set(finalCode_methods.get() + "global.put(\""+method_name+"\", global, "+BuildMethodCode.genFullMethod(clazz.getSimpleName()+".%s;", list)+");\n");
+                    finalCode_methods.set(finalCode_methods.get() + "global.put(\""+method_name+"\", global, "+BuildMethodCode.genFullMethod(clazz.getSimpleName()+".%s", list)+");\n");
             }
         });
         code += finalCode_methods.get();
 
-        Class<?> superClass = clazz;
+        superClass = clazz;
         while(superClass != null) {
             for (Class<?> clazz_dec : superClass.getDeclaredClasses()) {
                 if(!clazz_dec.isInterface() && !clazz_dec.isEnum() && (clazz_dec.getModifiers() & Modifier.PUBLIC) != 0)
-                    code += "Js"+clazz_dec.getSimpleName()+".inject(global);\n";
+                    code += "Js"+getNameClass(clazz_dec)+".inject(global);\n";
             }
             superClass = superClass.getSuperclass();
         }
@@ -219,8 +298,11 @@ public class ClassCode {
         superClass = clazz;
         while(superClass != null) {
             for (Class<?> clazz_dec : superClass.getDeclaredClasses()) {
-                if(!clazz_dec.isInterface() && !clazz_dec.isEnum() && (clazz_dec.getModifiers() & Modifier.PUBLIC) != 0)
-                    code += ClassCode.gen(clazz_dec, true)+"\n\n\n";
+                if(!clazz_dec.isInterface() && !clazz_dec.isEnum() && Modifier.isPublic(clazz_dec.getModifiers())) {
+                    final String temp = ClassCode.gen(clazz_dec, true);
+                    if(temp != null)
+                        code += temp + "\n\n\n";
+                }
             }
             superClass = superClass.getSuperclass();
         }
@@ -229,7 +311,51 @@ public class ClassCode {
         return code;
     }
 
-    public static void save(Class<?> clazz) throws IOException {
-        FileTools.writeFileText(FileTools.DIR_PACK+"Js"+clazz.getSimpleName()+".java", ClassCode.gen(clazz, false));
+    public static String genInitClass(){
+        String code = "package com.zhekasmirnov.innercore.optifine_api;\n\n";
+
+        code += "public class InitClasses {\n";
+
+        code += "   public static void init(){\n";
+        for(String init : initClass){
+            code += "       Js"+init+".init();\n";
+        }
+        code += "   }\n";
+
+        code += "}\n";
+
+        return code;
+    }
+
+    private static void save(Class<?> clazz) throws IOException {
+        final String text = ClassCode.gen(clazz, false);
+        if(text != null)
+            FileTools.writeFileText(FileTools.DIR_PACK+"js/Js"+getNameClass(clazz)+".java", text);
+    }
+
+    public static void genApi() throws IOException {
+        save(AdaptedScriptAPI.Level.class);
+        save(AdaptedScriptAPI.Entity.class);
+        save(AdaptedScriptAPI.Translation.class);
+        save(AdaptedScriptAPI.Updatable.class);
+        save(AdaptedScriptAPI.Particles.class);
+
+        save(AdaptedScriptAPI.GenerationUtils.class);
+        save(AdaptedScriptAPI.Player.class);
+        save(AdaptedScriptAPI.IDRegistry.class);
+        save(AdaptedScriptAPI.Recipes.class);
+        save(NativeBlockSource.class);
+
+        save(AdaptedScriptAPI.UI.class);
+        save(AdaptedScriptAPI.Block.class);
+        save(AdaptedScriptAPI.Item.class);
+        save(AdaptedScriptAPI.GameController.class);
+        save(AdaptedScriptAPI.Saver.class);
+
+        save(AdaptedScriptAPI.Logger.class);
+        save(AdaptedScriptAPI.PlayerActor.class);
+        save(AdaptedScriptAPI.ItemContainer.class);
+
+        FileTools.writeFileText(FileTools.DIR_PACK+"js/InitClasses.java", genInitClass());
     }
 }
