@@ -1,5 +1,6 @@
 package com.zhekasmirnov.innercore.optifine_api.codegen;
 
+import com.zhekasmirnov.innercore.api.runtime.other.PrintStacking;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
@@ -20,8 +21,7 @@ public class JsTypesInit {
 
         @Override
         public Object jsFromJava(Object arg, Scriptable scope) {
-            final Context context = Context.getCurrentContext();
-            return context.getWrapFactory().wrap(context, scope, arg, arg.getClass());
+            return Context.javaToJS(arg, scope);
         }
 
         @Override
