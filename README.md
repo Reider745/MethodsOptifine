@@ -4,7 +4,7 @@
 Он поддерживает как локальную, так и многопользовательскую игру, 
 а также совместим с серверным ядром [ZoteCoreLoader](https://github.com/Reider745/ZoteCoreLoader/blob/NukkitMot/README-RU.md).
 
-![MethodsOptifine](/src/mod_icon.png)
+![MethodsOptifine](/mod_icon.png)
 
 ## Как работает мод?
 

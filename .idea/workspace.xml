@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dfeb138a-cdbe-4b89-b2dc-3f291d29b6d9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/make.json" beforeDir="false" afterPath="$PROJECT_DIR$/make.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/AdaptedScriptOptifine.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/InitClasses.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIBlock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIGameController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIGenerationUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIIDRegistry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIItemContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPILevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPILogger.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIParticles.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIPlayer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIPlayerActor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIRecipes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPISaver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPITranslation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsAdaptedScriptAPIUpdatable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsBlock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsBlockBreakResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsBlockShape.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsBlockState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsBox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsConnectedClientList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsContentProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsFrameTexture.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsGameController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsGenerationUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsGuiBlockModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsGuiBlockModelBox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsGuiRenderMesh.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsIDRegistry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsItemContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsItemContainerSlot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsItemContainerUiHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsItemStack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsLogger.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeAttributeInstance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeBlockSource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeCompoundTag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeItemInstance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeItemInstanceExtra.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeItemModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeListTag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativePathNavigation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeRenderMesh.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeRenderMeshReadOnlyVertexData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeShaderUniformSet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNativeTileEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNetworkEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsNetworkEntityType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsParticleRegistryParticleType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsParticleType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsParticles.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsPlayer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsPlayerActor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsReadOnlyVertexData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsRecipeEntry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsRecipes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsSaver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsTranslation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsUIStyle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsUIWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsUIWindowLocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsUpdatable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsWorkbenchShapedRecipe.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/JsWorkbenchShapelessRecipe.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/codegen/BaseScriptableClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/codegen/BuildMethodCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/codegen/ClassCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/codegen/IClassInstance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/codegen/JsFieldOpti.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/src/com/zhekasmirnov/innercore/optifine_api/codegen/JsTypesInit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/launcher.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mod_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolchain/classpath/android-support-multidex.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolchain/classpath/android-support-v4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolchain/classpath/android-support-v7-recyclerview.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolchain/classpath/android.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolchain/classpath/horizon-classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolchain/classpath/inner.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolchain/classpath/json-io.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolchain/classpath/rhino.jar" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2mgiX2qDVRgKXR7Q5CZb9uo5YKX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/vs)/toolchain-java-fix/toolchain/methods-optifine/.project"
+  }
+}]]></component>
+  <component name="RunManager" selected="Compound.Build" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dfeb138a-cdbe-4b89-b2dc-3f291d29b6d9" name="Changes" comment="" />
+      <created>1727504656195</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727504656195</updated>
+    </task>
+    <servers />
+  </component>
+</project>
