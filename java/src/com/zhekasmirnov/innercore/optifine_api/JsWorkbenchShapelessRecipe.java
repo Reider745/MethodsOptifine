@@ -312,15 +312,6 @@ public class JsWorkbenchShapelessRecipe
                         .WorkbenchField.class));
             }
         });
-        put("provideRecipe", this, new ScriptableFunctionImpl() {
-            @Override
-            public Object call(Context ctx, Scriptable scope,
-                Scriptable thisObj, Object[] args) {
-                return self.provideRecipe(wrapObject(args, 0,
-                    com.zhekasmirnov.innercore.api.mod.recipes.workbench
-                        .WorkbenchField.class));
-            }
-        });
         put("equals", this, new ScriptableFunctionImpl() {
             @Override
             public Object call(Context ctx, Scriptable scope,

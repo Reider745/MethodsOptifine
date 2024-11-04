@@ -500,9 +500,9 @@ public class JsAdaptedScriptAPIPlayerActor extends ScriptableObject implements W
                 final Long player = wrapLong(args, 0);
                 JsPlayerActor actor = players.get(player);
                 if(actor != null){
-                    Logger.debug("MethodsOptifine", "Added cache PlayerActor = "+player);
                     return actor;
                 }
+                Logger.debug("MethodsOptifine", "Added cache PlayerActor = "+player);
                 actor = new JsPlayerActor(new com.zhekasmirnov.innercore.api.mod.adaptedscript.AdaptedScriptAPI.PlayerActor(player));
                 players.put(player, actor);
                 return actor;

@@ -1,6 +1,5 @@
 package com.zhekasmirnov.innercore.optifine_api.codegen;
 
-import com.zhekasmirnov.innercore.api.runtime.other.PrintStacking;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
@@ -66,6 +65,8 @@ public class JsTypesInit {
     }
 
     public static Object jsFromJava(Class<?> clazz, Object arg, Scriptable scope){
+        if(arg == null)
+            return null;
         return types.getOrDefault(clazz.getName(), DEF).jsFromJava(arg, scope);
     }
 
